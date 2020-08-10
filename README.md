@@ -19,7 +19,7 @@
 |Sarun|Sirawit|Thanawath|Puvit|Visarut
 |Yantabutr|Yodjit|Petavibornsaratian|Chuechom|Phanmaisri
 
-## Role 📜
+## Roles 📜
 
 - <b>Project Manager (61070075)</b>
 คือผู้จัดการโครงงาน โดยทําหน้าที่บริหารโครงการและงานต่างๆในโครงการ คิด วางแผน กำหนดงาน ในโครงการให้ชัดเจน และควบคุมให้ดำเนินไปตามเป้าหมาย เสร็จตรงตามเวลา ภายใต้ข้อกำหนดและขอบเขตที่เหมาะสม
