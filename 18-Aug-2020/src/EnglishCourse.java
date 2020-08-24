@@ -16,10 +16,8 @@ public class EnglishCourse extends Course {
 	}
 	
 	public void printCourseDetail() {
-		System.out.println();
 		System.out.println(this);
-		System.out.printf("Title: %s, CourseID: %s\n", title, courseId);
-		System.out.println();
+		System.out.printf("Title: %s, CourseID: %s\n\n", title, courseId);
 	}
 
 }

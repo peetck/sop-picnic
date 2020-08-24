@@ -20,22 +20,29 @@ public class Rooms {
 	}
 	
 	public Room acquire() {
-		System.out.println();
-		System.out.printf("room left : %d\n", rooms.size());
+		System.out.print("Current room left : [");
+		for (Room room : rooms){
+			System.out.print(' ' + room.name + ' ');
+		}
 		Room takeRoom = rooms.get(0);
 		rooms.remove(0);
-		System.out.printf("take %s\n", takeRoom.name);
-		System.out.printf("room left : %d\n", rooms.size());
-		System.out.println();
+		System.out.printf("]\ntake [ %s ]\n", takeRoom.name);
+		System.out.print("Current room left : [");
+		for (Room room : rooms){
+			System.out.print(' ' + room.name + ' ');
+		}
+		System.out.println("]\n");
 		return takeRoom;
 	}
 	
 	public void release(Room relRoom) {
-		System.out.println();
-		System.out.printf("Release %s\n", relRoom.name);
+		System.out.printf("Release [ %s ]\n", relRoom.name);
 		rooms.add(relRoom);
-		System.out.printf("room left : %d\n", rooms.size());
-		System.out.println();
+		System.out.print("Current room left : [");
+		for (Room room : rooms){
+			System.out.print(' ' + room.name + ' ');
+		}
+		System.out.println("]\n");
 	}
 	
 	
