@@ -4,13 +4,15 @@ public class Main {
 
 
 		System.out.println("\n======== Singleton Pattern ========\n");
-		SchoolRecord record1 = SchoolRecord.getInstance();
-		SchoolRecord record2 = SchoolRecord.getInstance();
+		TranScript transcript = TranScript.getInstance();
+		TranScript transcript01 = TranScript.getInstance();
 
 		System.out.println("\n======== Prototype Pattern ========\n");
 		EnglishCourse eng1 = new EnglishCourse("English 101", "01");
 		eng1.printCourseDetail();
 		EnglishCourse eng2 = eng1.clone();
+		eng2.printCourseDetail();
+		eng2.section = "02";
 		eng2.printCourseDetail();
 
 		System.out.println("\n======== Object Pool Pattern ========\n");

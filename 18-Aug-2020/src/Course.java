@@ -2,17 +2,17 @@
 public abstract class Course {
 	
 	public String title;
-	public String courseId;
+	public String section;
 	
 	
-	public Course(String title, String courseId) {
+	public Course(String title, String section) {
 		this.title = title;
-		this.courseId = courseId;
+		this.section = section;
 	}
 	
 	public Course(Course course) {
 		this.title = course.title;
-		this.courseId = course.courseId;
+		this.section = course.section;
 	}
 	
 	public abstract Course clone();

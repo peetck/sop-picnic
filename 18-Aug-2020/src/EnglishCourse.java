@@ -1,8 +1,8 @@
 
 public class EnglishCourse extends Course {
 	
-	public EnglishCourse(String title, String courseId ) {
-		super(title, courseId);
+	public EnglishCourse(String title, String section ) {
+		super(title, section);
 	}
 	
 	
@@ -17,7 +17,7 @@ public class EnglishCourse extends Course {
 	
 	public void printCourseDetail() {
 		System.out.println(this);
-		System.out.printf("Title: %s, CourseID: %s\n\n", title, courseId);
+		System.out.printf("Title: %s, Section: %s\n\n", title, section);
 	}
 
 }
