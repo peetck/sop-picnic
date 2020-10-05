@@ -1,0 +1,772 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Taxi
+  # put the contact info for your development or API team
+
+
+# tags are used for organizing operations
+tags:
+- name: payment
+  description: -------
+- name: tracking
+  description: -------
+- name: vehicle
+  description: -------
+- name: messaging
+  description: -------
+- name: location
+  description: -------
+- name: customer
+  description: -------
+- name: feedback
+  description: -------
+- name: promotion
+  description: -------
+- name: driver
+  description: -------
+
+
+paths:
+
+  /payment:
+    post:
+      tags:
+      - payment
+      summary: customer payment operation
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: data
+        description: Payment method
+        required: true
+        schema:
+          type: object
+          properties:
+            id:
+              type: string
+            customer:
+              $ref: '#/definitions/Customer'
+            driver:
+              $ref: '#/definitions/Driver'
+      responses:
+        201:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Payment'
+        400:
+          description: invalid id supplied
+        404:
+          description: customer not found
+          
+  /payment/{customerId}:
+    get:
+      tags:
+      - payment
+      summary: get customer peyment information
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: customerId
+        description: id of customer
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items: 
+              $ref: '#/definitions/Payment'
+        400:
+          description: invalid id supplied
+        404:
+          description: customer not found
+    
+  /vehicle:
+    post:
+      tags:
+        - vehicle
+      summary: add a new car
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: vehicle
+        schema:
+          $ref: '#/definitions/Vehicle'
+      responses:
+        200:
+          description: add a new car successful
+          schema:
+            $ref: '#/definitions/Vehicle'
+        400:
+          description: invalid input
+    put:
+      tags:
+      - vehicle
+      summary: update vehicle
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: vehicle
+        description: vehicle updated
+        schema:
+          $ref: '#/definitions/Vehicle'
+      responses:
+        200:
+          description: successful
+          schema:
+            $ref: '#/definitions/Vehicle'
+        400:
+          description: invalid input
+          
+  
+  /tracking:
+    post:
+      tags:
+      - tracking
+      summary: tracking taxi
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: trackingData
+        required: true
+        schema:
+          type: object
+          properties:
+            id:
+              type: string
+            location:
+              $ref: '#/definitions/Location'
+            customer:
+              $ref: '#/definitions/Customer'
+      responses:
+        201:
+          description: successful
+          schema:
+            $ref: '#/definitions/Tracking'
+        400:
+          description: invalid id supplied
+        404:
+          description: customer not found
+      
+  
+  
+          
+  /tracking/{vehicleId}:
+    get:
+      tags:
+        - tracking
+      summary: get tracking
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: vehicleId
+        type: string
+        required: true
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Tracking'
+        400:
+          description: invalid tracking
+    
+          
+  /vehicle/{vehicleId}:
+    get:
+      tags:
+        - vehicle
+      summary: return car detail
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: vehicleId
+        type: string
+        required: true
+      responses:
+        200:
+          description: vehicle detail
+          schema:
+            $ref: '#/definitions/Vehicle'
+        400:
+          description: invalid input
+          
+    delete:
+      tags:
+      - vehicle
+      summary: delete car
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: vehicleId
+        description: id of car to delete
+        required: true
+        type: string
+      responses:
+        200:
+          description: Delete Successful
+          schema:
+            $ref: '#/definitions/Vehicle'
+        400:
+          description: invalid id supplied
+        404:
+          description: Not Found
+  
+  /customer:
+    post: 
+      tags :
+      - "customer"
+      summary: create information Customer
+      description: put informmation Customer
+      responses:
+        200:
+          description: OK
+          
+          schema:
+              $ref: '#/definitions/Customer'
+        400:
+          description: Not found
+    get:
+      tags:
+      - customer
+      summary: customer
+      description: get all customer informations
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref : '#/definitions/Customer'
+        
+        
+  /customer/{customerid}:
+    parameters:
+        - in: path
+          type: number
+          name : customerid
+          description: The user ID
+          required : true
+    get:
+      tags:
+      - customer
+      summary: test customer.
+      description: test 
+      produces:
+      - application/json
+
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Customer'
+        400:
+          description: customer not found
+          
+    put:
+      tags:
+      - customer
+      summary: update information Customer
+      description: update information Customer 
+      
+      parameters:
+      - in: path
+        type: number
+        name : customerid
+        description: The user ID
+        required : true
+      
+      responses:
+        200:
+          description: OK
+          schema :
+            $ref : '#/definitions/Customer'
+        400:
+          description: Can't update informations 
+          
+    delete:
+      tags:
+      - customer
+      summary: delete user account
+      description: delete user account
+      responses:
+        200:
+          description: OK
+        400:
+          description: please try again
+        
+    
+# --------------------------------------------------------------------------------
+
+  /promotion:
+    
+    post:
+      tags:
+      - promotion
+      summary: create promotions
+      description: create
+      responses:
+        200:
+          description: ok
+          schema: 
+            $ref: '#/definitions/Promotions'
+        
+    
+    
+    get:
+      tags:
+      - "promotion"
+      summary: get code 
+      description: get code and show name
+      responses:
+        200:
+          description: OK
+  
+    
+  #---------------------------------------------------------------------------
+  
+  /driver:
+    post:
+      tags:
+      - "driver"
+      summary: Driver
+      description: Create informations driver
+      responses:
+        200:
+          description: OK
+    
+  /driver/{driverId}:
+  
+    parameters:
+        - in: path
+          type: number
+          name : driverId
+          description: The user ID
+          required : true
+  
+    get:
+      tags:
+      - "driver"
+      summary: get Driver Id
+      description: Informations of Driver
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Driver'
+        400:
+          description: Not found id Driver 
+        
+    
+    put:
+      tags:
+      - "driver"
+      summary: update
+      description: update informations driver
+      responses:
+        200:
+          description: OK
+  
+  
+          
+          
+  /feedback:
+    get:
+      tags:
+        - feedback
+      summary: "get all feedback"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Feedback'
+    
+    post:
+      tags:
+      - feedback
+      summary: add a new feedback
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: data
+          description: ""
+          required: true
+          schema:
+            $ref: '#/definitions/Feedback'
+      responses:
+        204:
+          description: successful operation
+        404:
+          description: "Customer or Driver not found"
+          
+  /feedback/{customerId}:
+    get:
+      tags:
+      - feedback
+      summary: find feedback by Customer Id
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: customerId
+        description: id of customer to return
+        required: true
+        type: integer
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Feedback'
+            
+  /location/{workId}:
+    get:
+      tags:
+      - location
+      summary: Get location
+      description: Get locationn
+      parameters:
+      - in: path
+        name: workId
+        description: id of customer to return
+        type: string
+        required: true
+      responses:
+        200:
+          description: Get location success
+          schema:
+            $ref: '#/definitions/Location'
+    post:
+      tags:
+      - location
+      summary: add a new location
+      description: add a new location
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: workId
+        description: id of customer to return
+        type: string
+        required: true
+      responses:
+        200:
+          description: add location success
+          schema:
+            $ref: '#/definitions/Location'
+        400:
+          description: invalid input
+          
+  /location/{workId}/start:
+    get:
+      tags:
+      - location
+      summary: Get start  location
+      description: Get start locationn
+      parameters:
+      - in: path
+        name: workId
+        description: id of customer to return
+        type: string
+        required: true
+      responses:
+        200:
+          description: Get start location success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Location'
+    post:
+      tags:
+      - location
+      summary: add a new start location
+      description: add a new start location
+      parameters:
+      - in: path
+        name: workId
+        description: id of customer to return
+        type: string
+        required: true
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        200:
+          description: add start location success
+          schema:
+            $ref: '#/definitions/Location'
+        400:
+          description: invalid input
+          
+  /location/{workId}/target:
+    get:
+      tags:
+      - location
+      summary: Get target  location
+      description: Get target locationn
+      parameters:
+      - in: path
+        name: workId
+        description: id of customer to return
+        type: string
+        required: true
+      responses:
+        200:
+          description: Get target location success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Location'
+    post:
+      tags:
+      - location
+      summary: add a new target location
+      description: add a new target location
+      parameters:
+      - in: path
+        name: workId
+        description: id of customer to return
+        type: string
+        required: true
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        200:
+          description: add target location success
+          schema:
+            $ref: '#/definitions/Location'
+        400:
+          description: invalid input
+          
+  /location/{workId}/taxi:
+    get:
+      tags:
+      - location
+      summary: Get taxi location
+      description: Get taxi locationn
+      parameters:
+      - in: path
+        name: workId
+        description: id of customer to return
+        type: string
+        required: true
+      responses:
+        200:
+          description: Get taxi location success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Location'
+    post:
+      tags:
+      - location
+      summary: add a new taxi location
+      description: add a new taxi location
+      parameters:
+      - in: path
+        name: workId
+        description: id of customer to return
+        type: string
+        required: true
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        200:
+          description: add taxi location success
+          schema:
+            $ref: '#/definitions/Location'
+        400:
+          description: invalid input
+  
+  /Messaging/{message_id}:
+    get:  
+      tags:
+      - messaging
+      summary: Get message
+      description: Get message
+      parameters:
+      - in: path
+        name: message_id
+        description: id of customer to return
+        type: string
+        required: true
+      responses:
+        200:
+          description: Get message success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Messaging'
+        400:
+          description: invalid input
+    post:
+      tags:
+      - messaging
+      summary: Send message
+      description: Send message
+      parameters:
+      - in: path
+        name: message_id
+        description: id of customer to return
+        type: string
+        required: true
+      responses:
+        200:
+          description: Get message success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Messaging'
+        400:
+          description: invalid input
+    
+     
+            
+definitions:
+  Vehicle:
+    type: object
+    properties:
+      id:
+        type: string
+      description:
+        type: string
+      model:
+        type: string
+      driver:
+        $ref: '#/definitions/Driver'
+  
+  Driver:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+        format: "integer"
+        example: 1
+      name:
+        type: "string"
+      lastname:
+        type: "string"
+      age :
+        type: "number"
+      
+      vehicle_id:
+        type: "number"
+        format: "integer"
+        example: 22
+      
+  Customer :
+    type: "object"
+    properties:
+      id :
+        type: "number"
+        format: "integer"
+        example: 1
+      name : 
+        type:  "string"
+        example: "Name Lastname"
+      email:
+        type: "string"
+        example: "test@gmail.com"
+      phone: 
+        type: "string"
+        example: "08111111"
+      age :
+        type: "integer"
+        example: 20
+        
+  Promotions :
+    type: "object"
+    properties:
+      code: 
+        type: string
+      name:
+        type:  string
+      
+  Feedback :
+    type: "object"
+    properties:
+      text :
+        type: "string"
+      rating :
+        type: "integer"
+      customerId:
+        type: "integer"
+      driverId:
+        type: "integer"
+        
+  Location:
+    type: "object"
+    properties:
+      lat:
+        type: number
+        format: double
+      long:
+        type: number
+        format: double
+        
+  Messaging:
+    type: "object"
+    properties:
+      message_id:
+        type: number
+      time:
+        type: "string" 
+      text:
+        type: "string"
+  
+  Payment:
+    type: object
+    properties:
+      id:
+        type: string
+      customer:
+        $ref: '#/definitions/Customer'
+      driver:
+        $ref: '#/definitions/Driver'
+        
+  Tracking:
+    type: object
+    properties:
+      id:
+        type: string
+      location:
+        $ref: '#/definitions/Location'
+      customer:
+        $ref: '#/definitions/Customer'
+  
+  
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /peetck/Taxi/1.0.0
+schemes:
+ - https

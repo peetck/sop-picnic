@@ -1,0 +1,766 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: KMITL Registrars
+  # put the contact info for your development or API team
+
+
+# tags are used for organizing operations
+tags:
+- name: course
+  description: Operations about course
+- name: student
+  description: Operations about student
+- name: lecturer
+  description: Operations about lecturer
+- name: finance
+  description: Operations about finance
+- name: evaluation
+  description: Operations about evaluation
+- name: grade
+  description: Operations about grade
+- name: form
+  description: Operations about form and knowledge management
+
+paths:
+  #-------------------------- course --------------------------#
+  
+  /course:
+    get:
+      tags:
+      - course
+      summary: get all course
+      produces:
+      - application/json
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Course'
+    post:
+      tags:
+      - course
+      summary: add a new course
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: course
+        description: course object that needs to be added to the system
+        schema:
+          $ref: '#/definitions/Course'
+      responses:
+        201:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Course'
+        400:
+          description: invalid input
+    put:
+      tags:
+      - course
+      summary: update an existing course
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: course
+        description: course object that needs to be updated
+        schema:
+          $ref: '#/definitions/Course'
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Course'
+        400:
+          description: invalid input
+        404:
+          description: course not found
+          
+  /course/{courseId}:
+    get:
+      tags:
+      - course
+      summary: find course by id
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: courseId
+        description: id of course to return
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Course'
+        400:
+          description: invalid id supplied
+        404:
+          description: course not found
+          
+    delete:
+      tags:
+      - course
+      summary: delete course by id
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: courseId
+        description: id of course to delete
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Course'
+        400:
+          description: invalid id supplied
+        404:
+          description: course not found
+  
+  /course/manage:
+    post:
+      tags:
+      - course
+      summary: student register a course
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: data
+        description: student id and course id
+        required: true
+        schema:
+          type: object
+          properties:
+            studentId:
+              type: string
+            courseId:
+              type: string
+      responses:
+        201:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Course'
+        400:
+          description: invalid input
+        404:
+          description: student or course not found
+      
+    delete:
+      tags:
+      - course
+      summary: student withdraw a course
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: data
+        description: student and course object
+        required: true
+        schema:
+          type: object
+          properties:
+            studentId:
+              type: string
+            courseId:
+              type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Course'
+        400:
+          description: invalid id supplied
+        404:
+          description: student not found
+
+  #-------------------------- student --------------------------#
+  
+  /student:
+    get:
+      tags:
+      - student
+      summary: get all student
+      produces:
+      - application/json
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Student'
+    post:
+      tags:
+      - student
+      summary: add a new student
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: student
+        description: student object that needs to be added to the system
+        schema:
+          $ref: '#/definitions/Student'
+      responses:
+        201:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Student'
+        400:
+          description: invalid input
+    put:
+      tags:
+      - student
+      summary: update an existing student
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: student
+        description: student object that needs to be updated
+        schema:
+          $ref: '#/definitions/Student'
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Student'
+        400:
+          description: invalid input
+        404:
+          description: student not found
+          
+  /student/{studentId}:
+    get:
+      tags:
+      - student
+      summary: find student by id
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: studentId
+        description: id of student to return
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Student'
+        400:
+          description: invalid id supplied
+        404:
+          description: student not found
+          
+    delete:
+      tags:
+      - student
+      summary: delete student by id
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: studentId
+        description: id of student to delete
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Student'
+        400:
+          description: invalid id supplied
+        404:
+          description: student not found
+          
+  /student/{studentId}/course:
+    get:
+      tags:
+      - student
+      summary: get all course that the student has registered
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: studentId
+        description: id of student
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items: 
+                $ref: '#/definitions/Course'
+        400:
+          description: invalid id supplied
+        404:
+          description: student or course not found
+            
+            
+  #-------------------------- lecturer --------------------------#
+  
+  /lecturer:
+    get:
+      tags:
+      - lecturer
+      summary: get all lecturer
+      produces:
+      - application/json
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Lecturer'
+    post:
+      tags:
+      - lecturer
+      summary: add a new lecturer
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: lecturer
+        description: lecturer object that needs to be added to the system
+        schema:
+          $ref: '#/definitions/Lecturer'
+      responses:
+        201:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Lecturer'
+        400:
+          description: invalid input
+    put:
+      tags:
+      - lecturer
+      summary: update an existing lecturer
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: lecturer
+        description: lecturer object that needs to be updated
+        schema:
+          $ref: '#/definitions/Lecturer'
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Lecturer'
+        400:
+          description: invalid input
+        404:
+          description: lecturer not found
+          
+  /lecturer/{lecturerId}:
+    get:
+      tags:
+      - lecturer
+      summary: find lecturer by id
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: lecturerId
+        description: id of lecturer to return
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Lecturer'
+        400:
+          description: invalid id supplied
+        404:
+          description: lecturer not found
+          
+    delete:
+      tags:
+      - lecturer
+      summary: delete lecturer by id
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: lecturerId
+        description: id of lecturer to delete
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Lecturer'
+        400:
+          description: invalid id supplied
+        404:
+          description: lecturer not found
+            
+  #-------------------------- finance --------------------------#
+  
+  /finance/{studentId}:
+    get:
+      tags:
+      - finance
+      summary: get student finance information
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: studentId
+        description: id of student
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items: 
+              $ref: '#/definitions/FinanceInformation'
+        400:
+          description: invalid id supplied
+        404:
+          description: student not found
+    
+  
+  /finance:
+    post:
+      tags:
+      - finance
+      summary: student payment operation
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: data
+        description: student id and payment method
+        required: true
+        schema:
+          type: object
+          properties:
+            studentId:
+              type: string
+            paymentMethod:
+              type: string
+            academicYear:
+              type: string
+            semester:
+              type: string
+      responses:
+        201:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/FinanceInformation'
+        400:
+          description: invalid id supplied
+        404:
+          description: student not found
+  
+  #-------------------------- evaluation --------------------------#
+  
+  /evaluation:
+    post:
+      tags:
+      - evaluation
+      summary: student evaluation a course
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: data
+        description: student id and course id
+        required: true
+        schema:
+          type: object
+          properties:
+            studentId:
+              type: string
+            courseId:
+              type: string
+            message:
+              type: string
+      responses:
+        204:
+          description: successful operation
+        404:
+          description: student or course not found
+          
+  #-------------------------- grade --------------------------#
+  
+  /grade:
+    post:
+      tags:
+      - grade
+      summary: lecturer send grade
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: data
+        description: course id and lecturer id
+        required: true
+        schema:
+          type: object
+          properties:
+            courseId:
+              type: string
+            lecturerId:
+              type: string
+      responses:
+        204:
+          description: successful operation
+        400:
+          description: invalid id supplied
+        404:
+          description: student or lecturer not found
+  
+  /grade/{studentId}:
+    get:
+      tags:
+      - grade
+      summary: get a student grade
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: studentId
+        description: id of student
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items: 
+              $ref: '#/definitions/Grade'
+        400:
+          description: invalid id supplied
+        404:
+          description: student not found
+      
+  #-------------------------- form & km --------------------------#
+  
+  /form:
+    get:
+      tags:
+      - form
+      summary: get all form
+      produces:
+      - application/json
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Form'
+    post:
+      tags:
+      - form
+      summary: add a new form
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: form
+        description: form object that needs to be added to the system
+        schema:
+          $ref: '#/definitions/Form'
+      responses:
+        201:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Form'
+        400:
+          description: invalid input
+    put:
+      tags:
+      - form
+      summary: update an existing form
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: form
+        description: form object that needs to be updated
+        schema:
+          $ref: '#/definitions/Form'
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Form'
+        400:
+          description: invalid input
+        404:
+          description: form not found
+    
+    
+  /form/{formId}:
+    get:
+      tags:
+      - form
+      summary: find form by id
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: formId
+        description: id of form to return
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Form'
+        400:
+          description: invalid id supplied
+        404:
+          description: form not found
+          
+    delete:
+      tags:
+      - form
+      summary: delete form by id
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: formId
+        description: id of form to delete
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Form'
+        400:
+          description: invalid id supplied
+        404:
+          description: form not found
+            
+definitions:
+  Course:
+    type: object
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      lecturer:
+        $ref: '#/definitions/Lecturer'
+      students:
+        type: array
+        items:
+          $ref: '#/definitions/Student'
+  Student:
+    type: object
+    properties:
+      id:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      faculty:
+        type: string
+  Lecturer:
+    type: object
+    properties:
+      id:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+  FinanceInformation:
+    type: object
+    properties:
+      academicYear:
+        type: string
+      semester1:
+        type: boolean
+      semester2:
+        type: boolean
+  Grade:
+    type: object
+    properties:
+      academicYear:
+        type: string
+      semester1:
+        type: number
+        format: double
+      semester2:
+        type: number
+        format: double
+  Form:
+    type: object
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      content:
+        type: string
+      category:
+        type: string
+        
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /peetck/KMITLRegistrars/1.0.0
+schemes:
+ - https
