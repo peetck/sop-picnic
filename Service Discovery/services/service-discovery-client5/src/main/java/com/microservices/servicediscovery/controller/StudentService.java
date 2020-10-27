@@ -1,8 +1,6 @@
 package com.microservices.servicediscovery.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.microservices.servicediscovery.bean.Student;
-import com.netflix.appinfo.InstanceInfo;
-import com.netflix.discovery.shared.Application;
 
 @RestController
 public class StudentService {
