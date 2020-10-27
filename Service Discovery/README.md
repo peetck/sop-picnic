@@ -6,5 +6,5 @@
 
 ### การรัน Application
 
-- รัน service-discovery-server และ service-discovery-client ต่างๆ ที่ /services/...
-- เข้าดู Dashboard ได้ที่ /dashboard/index.html
+- รัน service-discovery-server และ service-discovery-client ต่างๆ ที่ โฟลเดอร์ services
+- เข้าดู Dashboard ได้ที่ โฟลเดอร์ dashboard ไฟล์ index.html
